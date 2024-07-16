@@ -1,0 +1,14 @@
+{
+  "require": {
+    "php": "^8.2",
+    "guzzlehttp/guzzle": "^7.8",
+    "ext-pdo": "*",
+    "ext-dom": "*",
+    "ext-libxml": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "IbookParser\\": "classes/"
+    }
+  }
+}
