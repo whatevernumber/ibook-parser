@@ -1,10 +1,17 @@
 <?php
 
-namespace IbookParser;
+namespace IbookParser\Handlers;
+
+use IbookParser\db\DBTrait;
 
 class LinkHandler
 {
     use DBTrait;
+
+    public function __construct()
+    {
+        $this->connect();
+    }
 
     /**
      * Fetches all links from DB

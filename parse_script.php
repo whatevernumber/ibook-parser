@@ -1,5 +1,5 @@
 <?php
 require_once 'vendor/autoload.php';
 
-$labirintHandler = new \IbookParser\LabirintHandler();
+$labirintHandler = new \IbookParser\Services\LabirintService();
 $labirintHandler->handle();

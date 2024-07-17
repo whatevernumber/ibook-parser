@@ -1,10 +1,17 @@
 <?php
 
-namespace IbookParser;
+namespace IbookParser\Handlers;
+
+use IbookParser\db\DBTrait;
 
 class BookHandler
 {
     use DBTrait;
+
+    public function __construct()
+    {
+        $this->connect();
+    }
 
     /**
      * Searches book for the given isbn

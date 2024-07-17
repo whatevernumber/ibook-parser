@@ -1,6 +1,6 @@
 <?php
 
-namespace IbookParser;
+namespace IbookParser\DB;
 
 trait DBTrait {
 
@@ -10,7 +10,7 @@ trait DBTrait {
      * Creates PDO instance
      * @throws \Exception
      */
-    function connect(): void
+    protected function connect(): void
     {
         $this->database = (new DBConnection())->createConnection();
     }

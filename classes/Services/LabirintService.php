@@ -1,10 +1,16 @@
 <?php
 
-namespace IbookParser;
+namespace IbookParser\Services;
 
 use GuzzleHttp\Client;
+use IbookParser\DB\DBTrait;
+use IbookParser\Handlers\AuthorHandler;
+use IbookParser\Handlers\BookHandler;
+use IbookParser\Handlers\GenreHandler;
+use IbookParser\Handlers\LinkHandler;
+use IbookParser\Handlers\ParseHandler;
 
-class LabirintHandler
+class LabirintService
 {
     use DBTrait;
 
@@ -16,6 +22,7 @@ class LabirintHandler
     public function __construct()
     {
         $this->helper = new ParseHandler(new Client());
+        $this->connect();
     }
 
     /**
@@ -25,7 +32,6 @@ class LabirintHandler
      */
     public function handle(): void
     {
-        $this->connect();
         $categories = $this->getCategories();
 
         foreach ($categories as $category) {
@@ -38,28 +44,24 @@ class LabirintHandler
     }
 
     /**
-     * Collects book and saves its data to the db
+     * Collects book and saves its data to the DB
      * @param $link
      * @param $main_genre
      * @return void
      */
     public function collectBook($link, $main_genre)
     {
-        $this->connect();
 
         $book = $this->parseBook($link);
 
         $bookHandler = new BookHandler();
-        $bookHandler->connect();
         $bookHandler->saveBook($book);
 
         $genreHandler = new GenreHandler();
-        $genreHandler->connect();
         $genreHandler->linkGenre($book['isbn'], $main_genre);
 
         if (isset($book['authors'])) {
             $authorHelper = new AuthorHandler();
-            $authorHelper->connect();
 
             foreach ($book['authors'] as $author) {
                 if ($exists = $authorHelper->fetchAuthor($author)) {
@@ -111,7 +113,6 @@ class LabirintHandler
 
         foreach ($links as $link) {
             $linkHandler = new LinkHandler();
-            $linkHandler->connect();
             $linkHandler->saveLink($link, $category['genre_id']);
         }
 

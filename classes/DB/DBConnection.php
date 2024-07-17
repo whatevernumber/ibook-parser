@@ -1,6 +1,6 @@
 <?php
 
-namespace IbookParser;
+namespace IbookParser\DB;
 
 class DBConnection
 {
