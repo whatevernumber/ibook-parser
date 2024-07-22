@@ -83,7 +83,7 @@ class LabirintService
             $genreHandler->linkGenre($book['isbn'], $genreId);
         }
 
-        if ($book['image-link']) {
+        if (isset($book['image-link'])) {
             $this->saveCoverLink($book);
         }
 
